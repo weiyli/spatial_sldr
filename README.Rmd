@@ -9,11 +9,10 @@ date: "2025-09-18"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 # Code
 
 All code used in this study is available at [https://github.com/weiyli/spatial_sldr](https://github.com/weiyli/spatial_sldr).  
-The repository contains scripts to reproduce all results, including network construction, metric computation, simulation, and figure generation. The code is organized into the following modules:
+This repository provides an implementation of the spatial range exponent (\(\rho\)), a system-level metric introduced to quantify the coherence of urban mobility. The code processes large-scale mobility flow data to compute \(\rho\) across MSAs, enabling comparisons of spatial dependence under both normal and disrupted conditions. The code is organized into the following modules:
 
 ## Global configuration
 - `sldr_global_vars_funs.R`: Provides global parameters and shared settings required across the entire SLDR analysis workflow. This script is sourced at the beginning of all modules to ensure consistent definitions of study regions, disaster events, and analysis windows.  

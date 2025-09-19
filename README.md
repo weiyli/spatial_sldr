@@ -6,9 +6,12 @@ The spatial range exponent in human mobility behaviour
 
 All code used in this study is available at
 <https://github.com/weiyli/spatial_sldr>.  
-The repository contains scripts to reproduce all results, including
-network construction, metric computation, simulation, and figure
-generation. The code is organized into the following modules:
+This repository provides an implementation of the spatial range exponent
+($\rho$), a system-level metric introduced to quantify the coherence of
+urban mobility. The code processes large-scale mobility flow data to
+compute $\rho$ across MSAs, enabling comparisons of spatial dependence
+under both normal and disrupted conditions. The code is organized into
+the following modules:
 
 ## Global configuration
 
