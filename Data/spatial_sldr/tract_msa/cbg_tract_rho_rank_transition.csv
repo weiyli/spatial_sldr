@@ -1,0 +1,49 @@
+"msa","period","aggregation","rho_rank"
+"Atlanta","Before","CBG",11
+"Atlanta","During","CBG",12
+"Boston","Before","CBG",12
+"Boston","During","CBG",11
+"Chicago","Before","CBG",10
+"Chicago","During","CBG",10
+"Dallas","Before","CBG",8
+"Dallas","During","CBG",8
+"Houston","Before","CBG",5
+"Houston","During","CBG",6
+"Los Angeles","Before","CBG",9
+"Los Angeles","During","CBG",9
+"Miami","Before","CBG",6
+"Miami","During","CBG",7
+"New York","Before","CBG",2
+"New York","During","CBG",2
+"Philadelphia","Before","CBG",7
+"Philadelphia","During","CBG",5
+"San Francisco","Before","CBG",1
+"San Francisco","During","CBG",1
+"Seattle","Before","CBG",3
+"Seattle","During","CBG",3
+"Washington, D.C.","Before","CBG",4
+"Washington, D.C.","During","CBG",4
+"Atlanta","Before","Tract",12
+"Atlanta","During","Tract",12
+"Boston","Before","Tract",9
+"Boston","During","Tract",9
+"Chicago","Before","Tract",7
+"Chicago","During","Tract",8
+"Dallas","Before","Tract",11
+"Dallas","During","Tract",11
+"Houston","Before","Tract",6
+"Houston","During","Tract",7
+"Los Angeles","Before","Tract",4
+"Los Angeles","During","Tract",5
+"Miami","Before","Tract",1
+"Miami","During","Tract",1
+"New York","Before","Tract",3
+"New York","During","Tract",3
+"Philadelphia","Before","Tract",10
+"Philadelphia","During","Tract",10
+"San Francisco","Before","Tract",2
+"San Francisco","During","Tract",2
+"Seattle","Before","Tract",5
+"Seattle","During","Tract",4
+"Washington, D.C.","Before","Tract",8
+"Washington, D.C.","During","Tract",6

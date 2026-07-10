@@ -1,0 +1,3 @@
+"cbg_area_stat","R2","pearson_r","pearson_p","spearman_r","spearman_p","cbg_area_label","label"
+"mean_cbg_area_km2",0.259867287112656,0.509771799055869,0.0904427046781046,0.440559440559441,0.15173503571673,"Mean CBG area","R^2 == 0.26*','~~Pearson~~italic(r) == 0.51"
+"median_cbg_area_km2",0.513834381604323,0.716822419853288,0.00870546761683393,0.580419580419581,0.0478559768420605,"Median CBG area","R^2 == 0.51*','~~Pearson~~italic(r) == 0.72"

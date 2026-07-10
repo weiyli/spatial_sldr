@@ -1,0 +1,3 @@
+"tract_area_stat","R2","pearson_r","pearson_p","spearman_r","spearman_p","tract_area_label","label"
+"mean_tract_area_km2",0.195164583381151,0.44177435799416,0.150477173500802,0.41958041958042,0.174519008130059,"Mean Tract area","R^2 == 0.20*','~~Pearson~~italic(r) == 0.44"
+"median_tract_area_km2",0.511656220741082,0.715301489402253,0.00891644689239923,0.622377622377623,0.0306758950616401,"Median Tract area","R^2 == 0.51*','~~Pearson~~italic(r) == 0.72"
