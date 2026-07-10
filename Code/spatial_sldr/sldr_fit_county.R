@@ -5,7 +5,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo/cbg'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'

@@ -2,15 +2,13 @@
 
 # Data from sldr_fit.R
 
-
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
 figpath <- 'D:/ood/Figure/spatial_sldr'
-
 
 #----------Load packages----------#
 library(ggsignif)   # gemo_signif()
@@ -42,20 +40,15 @@ source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
 Flow.name<-"Intra_Flow"
 
 
-#----------Part1: COVID-19----------#
-datapath <- '/home/weiy.li/Data/spatial_sldr'
-figpath <- '/home/weiy.li/Figure/spatial_sldr'
-
-
 #----------Plot the fitting results: spearman rank correlation and map----------#
 A.msa <- B.msa <- C.msa <- D.msa <- list()
-id.week<-paste(format(Datevalue[1:(Day/2)],"%m-%d"),format(Datevalue[1:(Day/2)], "%a"),sep=" ")
+id.week <- paste(format(Datevalue[1:(Day/2)],"%m-%d"),format(Datevalue[1:(Day/2)], "%a"),sep=" ")
 Dname<<-Dname.set[1]
 source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
 date.gif<-date.sep(Datevalue,durdate)
 
 # for(yindex in 1:Ynum){
-for(yindex in 1:2){
+for(yindex in 2:2){
   
   #----------data for plotting Pearson's correlation: data form sldr_fit.R----------#
   dis.cor <- read.csv(paste(datapath,"/msa/SLDR_rank_cor_",Yname[yindex],".csv",sep=""), header=TRUE)
@@ -192,11 +185,13 @@ for(yindex in 1:2){
     df.nodes$mob<-df.nodes$mob/max(df.nodes$mob)
     C.msa[[d]] <- ggplot() +
       geom_segment(data = na.omit(dis.edges), aes(x = Olon, y = Olat, xend = Dlon, yend = Dlat),
-                   arrow = arrow(length = unit(0, "inches")), color = "gray")+
-      geom_point(data = df.nodes, aes(x = lon, y = lat, color=mob, size= mob), alpha=0.8) +
+                   arrow = arrow(length = unit(0, "inches")), color = "gray", linewidth = 0.2, alpha = 0.8) +
+      geom_point(data = df.nodes, aes(x = lon, y = lat, color = mob, size = mob), alpha = 0.8) +
       # scale_colour_viridis_c(name='Flows',option = 'inferno') +
       scale_colour_gradientn(name = Dname, colors = col.fit) +
-      scale_size_continuous(name='Flows', range = c(0,5))+
+      scale_size_continuous(name = "Flows", range = c(0, 1.6),
+                            breaks = c(0.1, 0.5, 1.0),
+                            labels = scales::label_number(accuracy = 0.1)) +
       labs(title=DM[1])+
       theme_wy()+
       theme(panel.border = element_rect(fill=NA,color="black", linewidth=0.5, linetype="solid"),
@@ -215,10 +210,12 @@ for(yindex in 1:2){
     df.nodes$mob<-df.nodes$mob/max(df.nodes$mob)
     D.msa[[d]] <- ggplot() +
       geom_segment(data = na.omit(dis.edges), aes(x = Olon, y = Olat, xend = Dlon, yend = Dlat),
-                   arrow = arrow(length = unit(0, "inches")), color = "gray")+
+                   arrow = arrow(length = unit(0, "inches")), color = "gray", linewidth = 0.2, alpha = 0.8) +
       geom_point(data = df.nodes, aes(x = lon, y = lat, color=mob, size= mob), alpha=0.8) +
       scale_colour_gradientn(name = Dname, colors = col.fit) +
-      scale_size_continuous(name='Flows', range = c(0,5))+
+      scale_size_continuous(name = "Flows", range = c(0, 1.6),
+                            breaks = c(0.1, 0.5, 1.0),
+                            labels = scales::label_number(accuracy = 0.1)) +
       labs(title=DM[2])+
       theme_wy()+
       theme(panel.border = element_rect(fill=NA,color="black", linewidth=0.5, linetype="solid"),

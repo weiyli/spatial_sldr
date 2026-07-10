@@ -42,10 +42,6 @@ Flow.name<-"Intra_Flow"
 county.info <- read.csv(paste(geopath,"/msa/selected_msa_county.csv",sep=""), header=TRUE)
 county.info$county_fips <- sprintf("%05d", as.numeric(county.info$county_fips))
 
-#----------set the global function pointer used by homo/power/exp.param.est----------#
-error_test <<- error_specs[["rmse_rmspe"]]$fun
-
-
 #----------Part1: COVID-19----------#
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -92,9 +88,9 @@ for(s in 2:Nregion){
 } # region
 
 
-#----------SLDR fitting for queen----------#
+#----------SLDR fitting----------#
 for(s in 2:Nregion){
-  for(yindex in 1:Ynum){
+  for(yindex in 2:2){
     for(d in 1:Nmsa){
       
       Dname<<-Dname.set[d]
@@ -126,8 +122,8 @@ for(s in 2:Nregion){
       #----------Optimal parameters: rho----------#
       lower_bound<<-0
       upper_bound<<-5
-      lower_power<<-40
-      upper_power<<-80
+      lower_power<<-10
+      upper_power<<-100
       homo_list <- lapply(1:Day, function(g) {homo.day.est(g)})
       homo_result <- do.call(rbind, homo_list)%>%as.data.frame
       homo_result$index <- 'homo'
@@ -142,49 +138,11 @@ for(s in 2:Nregion){
       SLDR <- data.frame(day=Datevalue, lag=lag.max, rho=result[,1], error=result[,2], index=result[,3])
       write.csv(SLDR, file=paste(datapath,"/",region[s],"/params/",Dname,"_SLDR_params_",Yname[yindex],".csv",sep=""), row.names = FALSE)
       
-      
-      #----------2.fitting----------#
-      SLDR.fit<-NULL
-      SLDR.homo <- subset(SLDR,index=='homo')
-      SLDR.power <- subset(SLDR,index=='power')
-      SLDR.exp <- subset(SLDR,index=='exp')
-      for(i in 1:Day){
-        # empirical
-        s1 <- read.csv(paste(flowpath,"/", region[s], "/", Dname, "/Intra_Flow_",Datevalue[i],".csv", sep = ""), header=TRUE)
-        s2 <- left_join(data.frame(CensusBlockGroup=BlockID),
-                        data.frame(CensusBlockGroup=s1$CensusBlockGroup, mob=s1[,yindex+1]),
-                        by="CensusBlockGroup")
-        s2$mob[is.na(s2$mob)] <- 0
-        M.day <- s2$mob
-        # homo
-        rho<-SLDR.homo$rho[i]
-        lag.h <- matrix(rho, nrow = NBlock, ncol = length(slag), byrow = TRUE)
-        WM.h <- sapply(W, "%*%", M.day)
-        M.day.sim.homo <- rowSums(lag.h*WM.h)
-        # power
-        rho<-SLDR.power$rho[i]
-        lag.h <- matrix(rep(slag^(-rho), NBlock), ncol = length(slag), byrow = TRUE)
-        WM.h <- sapply(W, "%*%", M.day)
-        M.day.sim.power <- rowSums(lag.h*WM.h)
-        # exp
-        rho<-SLDR.exp$rho[i]
-        lag.h <- matrix(rep(exp(-slag/rho), NBlock), ncol = length(slag), byrow = TRUE)
-        WM.h <- sapply(W, "%*%", M.day)
-        M.day.sim.exp <- rowSums(lag.h*WM.h)
-        SLDR.fit <- plyr::rbind.fill(SLDR.fit, data.frame(day=Datevalue[i], 
-                                                          empirical=M.day, 
-                                                          homo=M.day.sim.homo,
-                                                          power=M.day.sim.power,
-                                                          exp=M.day.sim.exp))
-      } # day
-      write.csv(SLDR.fit,file=paste(datapath,"/",region[s],"/fit/",Dname,"_SLDR_fit_",Yname[yindex],".csv",sep=""),row.names = FALSE)
-      
+     
       print(d)
     } # dis
   }# yindex
 }# region
-
-
 
 
 

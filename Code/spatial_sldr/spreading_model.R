@@ -5,7 +5,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -197,8 +197,8 @@ rho.msa <- dis.rho[, .(
 rho.msa <- rho.msa[index == "exp"]
 rho.rank <- rho.msa[order(max_rho)]
 rho.rank[, msa_rank := .I]
-# select.msa <- rho.rank[msa_rank %in% c(1, 12)]
-select.msa <- rho.rank
+select.msa <- rho.rank[msa_rank %in% c(1, 12)]
+# select.msa <- rho.rank
 dset <- match(select.msa$msa, Dname.set)
 #----------initial parameters----------#
 # rho.set <- seq(0.2,0.6,0.05)    # spatial decay rate
@@ -207,7 +207,7 @@ dset <- match(select.msa$msa, Dname.set)
 beta.set <- c(0.3)      # infection rate
 mu.set <- c(0.1)       # recovery rate
 time_steps <- 1000     # number of simulation steps
-simulations <- 10      # number of repeated simulations
+simulations <- 100     # number of repeated simulations
 N0 <- 5                # number of initially infected nodes
 I0 <- 0.01             # initial infected probability
 sir.all <- NULL
@@ -226,7 +226,8 @@ for(i in 1:length(dset)){
   max.rho <- day.rho$max_rho
   max.day <- day.rho$max_day
   # det.rho <- seq(0, 0.9, 0.1)
-  det.rho <- seq(0,0.5,0.25)
+  # det.rho <- seq(0,0.5,0.25)
+  det.rho <- seq(0,0.10,0.01)
   rho.set <- c(max.rho * (1 - det.rho), max.rho * (1 + det.rho))
   day.set <- rep(max.day,length(rho.set))
   # c(rep(max.day,length(det.rho)),rep(max.day,length(det.rho)))
@@ -263,7 +264,11 @@ for(i in 1:length(dset)){
 } # msa
 # write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_",Yname[2],".csv",sep=""), row.names = FALSE)
 # write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_all_",Yname[2],".csv",sep=""), row.names = FALSE) 0-0.9
-write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_rho_",Yname[2],".csv",sep=""), row.names = FALSE)
+# write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_rho_",Yname[2],".csv",sep=""), row.names = FALSE)
+write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_as_",Yname[2],".csv",sep=""), row.names = FALSE)
+
+
+
 
 
 

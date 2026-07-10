@@ -2,17 +2,17 @@
 
 # select the region: msa and county
 
-#----------Workpath----------#
-setwd("/home/weiy.li/")
-codepath <- '/home/weiy.li/Code/spatial_sldr'
-datapath <- '/home/weiy.li/Data/spatial_sldr'
-figpath <- '/home/weiy.li/Figure/spatial_sldr'
-geopath <- '/home/weiy.li/Data/Geo'
+# #----------Workpath----------#
+# setwd("/home/weiy.li/")
+# codepath <- '/home/weiy.li/Code/spatial_sldr'
+# datapath <- '/home/weiy.li/Data/spatial_sldr'
+# figpath <- '/home/weiy.li/Figure/spatial_sldr'
+# geopath <- '/home/weiy.li/Data/Geo'
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -67,6 +67,8 @@ dis.demo[pop == 0, `:=`(
 # msa, county, and cbg from 2010_2019 census
 msa <- sf::read_sf(paste(geopath,"/census/tigris_msa_boundary_2010_2019.geojson",sep=""))
 county <- sf::read_sf(paste(geopath,"/census/tigris_county_boundary_2010_2019.geojson",sep=""))
+tract <- sf::read_sf(paste(geopath,"/census/tigris_tract_boundary_2010_2019.geojson",sep=""))
+
 
 # cbg from safegraph
 block <- sf::read_sf(paste(geopath,"/census/cbg.geojson",sep=""))
@@ -75,6 +77,7 @@ block$CensusBlockGroup<-as.numeric(block$CensusBlockGroup)
 BlockID <- unique(block$CensusBlockGroup)
 NBlock <- length(BlockID)
 
+#----------county within msa----------#
 selected.county <- county.num <- NULL
 for(d in 1:(Nmsa+Ndis)){
   
@@ -116,7 +119,29 @@ for(d in 1:(Nmsa+Ndis)){
 write.csv(selected.county, file=paste(geopath,"/msa/selected_msa_county.csv",sep=""),row.names = FALSE)
 
 
-
+#----------census tracts within msa----------#
+selected.tract <- tract.num <- NULL
+for(d in 1:(Nmsa + Ndis)){
+  
+  Dname <<- Dname.set[d]
+  source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
+  
+  #----------tracts within msa from 2010_2019 census----------#
+  msa.boundary <- msa[msa$msa_fips == Dname.id, ]
+  tract.msa <- sf::st_intersection(tract, msa.boundary)
+  # Construct tract FIPS (11 digits: state + county + tract)
+  tract.info <- data.frame(tract_fips = tract.msa$tract_fips,
+                           tract_name = tract.msa$tract_name,     
+                           msa_id = d,
+                           msa_fips = tract.msa$msa_fips,
+                           msa_name = Dname) %>% unique()
+  selected.tract <- plyr::rbind.fill(selected.tract, tract.info)
+  tract.num <- plyr::rbind.fill(tract.num, data.frame(tract_num = nrow(tract.info), msa_name = Dname))
+  
+  print(d)
+}
+#----------save selected msa-tract relationship----------#
+write.csv(selected.tract, file = paste(geopath,"/msa/selected_msa_tract.csv",sep=""), row.names = FALSE)
 
 
 A.panel <- list()
