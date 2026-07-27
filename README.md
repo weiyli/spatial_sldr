@@ -4,7 +4,7 @@ All code used in this study is available at <https://github.com/weiyli/spatial_s
 
 This repository contains the analysis workflow for the spatial range exponent, $\rho$, a system-level measure of spatial mobility coherence. The workflow estimates how mobility-driven spatial correlations decay across adjacency-based urban networks, compares empirical estimates with distance-based null flow models, evaluates changes during disruptions, and links $\rho$ to spatially correlated epidemic dynamics.
 
-This README is synchronized with the revised manuscript, **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Scripts with the `reply_` prefix are analyses used during the response to reviewers and retained to document the revision-round checks.
+This repository provides the code and documentation for **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Scripts with the `reply_` prefix are analyses used during the response to reviewers and retained to document the revision-round checks.
 
 ## Repository structure
 
