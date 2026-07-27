@@ -4,7 +4,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -244,13 +244,14 @@ for(yindex in 2:2){
     (C.msa[[9]]|D.msa[[9]]|C.msa[[10]]|D.msa[[10]])/
     (C.msa[[11]]|D.msa[[11]]|C.msa[[12]]|D.msa[[12]]) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
   ggsave(fig.fit.si, filename = paste(figpath,"/msa/SI_fit_",Yname[yindex],".pdf",sep=""), width =5*4, height = 4.5*5)
-  #----------SI residuals: Model performance for additional MSAs----------#
-  fig.res.si <- (B.msa[[3]]|B.msa[[4]])/(B.msa[[5]]|B.msa[[6]])/
-    (B.msa[[7]]|B.msa[[8]])/(B.msa[[9]]|B.msa[[10]])/
-    (B.msa[[11]]|B.msa[[12]]) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
-  ggsave(fig.res.si, filename = paste(figpath,"/msa/SI_fit_res_",Yname[yindex],".pdf",sep=""), width = 5*4, height = 5*5)
+  # #----------SI residuals: Model performance for additional MSAs----------#
+  # fig.res.si <- (B.msa[[3]]|B.msa[[4]])/(B.msa[[5]]|B.msa[[6]])/
+  #   (B.msa[[7]]|B.msa[[8]])/(B.msa[[9]]|B.msa[[10]])/
+  #   (B.msa[[11]]|B.msa[[12]]) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
+  # ggsave(fig.res.si, filename = paste(figpath,"/msa/SI_fit_res_",Yname[yindex],".pdf",sep=""), width = 5*4, height = 5*5)
   
 } # Yname
+
 
 
 

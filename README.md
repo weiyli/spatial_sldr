@@ -1,31 +1,27 @@
-﻿The spatial range exponent in human mobility behavior
-=====================================================
-2026-07-10
-
-# Code
+﻿# Code
 
 All code used in this study is available at <https://github.com/weiyli/spatial_sldr>.
 
-This repository contains the analysis workflow for the spatial range exponent, $\rho$, a system-level measure of spatial mobility coherence. The workflow estimates how mobility-driven spatial correlations decay across adjacency-based urban networks, compares empirical estimates with distance-based null models, evaluates changes during disruptions, and links $\rho$ to spatially explicit epidemic dynamics.
+This repository contains the analysis workflow for the spatial range exponent, $\rho$, a system-level measure of spatial mobility coherence. The workflow estimates how mobility-driven spatial correlations decay across adjacency-based urban networks, compares empirical estimates with distance-based null flow models, evaluates changes during disruptions, and links $\rho$ to spatially correlated epidemic dynamics.
 
-The current version matches the revised manuscript, **"The spatial range exponent in human mobility behavior"**. In the U.S. analysis, spatial units are Census Block Groups (CBGs) connected by queen contiguity unless otherwise noted. Because $\rho$ is defined over topological lags, estimates should be interpreted relative to the spatial units and adjacency definition used in each analysis.
+This README is synchronized with the revised manuscript, **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Reviewer-response scripts that support revised analyses are kept with the `reply_` prefix.
 
 ## Repository structure
 
 ### Global configuration
 
-- `sldr_global_vars_funs.R`: Defines shared paths, study regions, MSA and disaster metadata, dates, labels, plotting palettes, and helper functions used across the workflow.
+- `sldr_global_vars_funs.R`: Defines shared paths, study regions, MSA and disaster metadata, dates, labels, plotting palettes, error functions, and helper functions used across the workflow.
 
 ### Data preparation
 
 - `download_geodata.R`: Downloads or prepares geographic inputs used to define spatial units.
-- `select_region.R`: Maps counties to each MSA, extracts CBGs within study boundaries, and joins demographic and geometric attributes.
+- `select_region.R`: Maps counties to each MSA, extracts CBGs or tracts within study boundaries, and joins demographic and geometric attributes.
 - `od_flow.R`: Processes SafeGraph origin-destination mobility records into daily CBG-level flows and degree summaries.
 - `od_dist.R`: Computes origin-destination travel-distance summaries used in mobility-structure analyses.
 
 Typical processed inputs and outputs include:
 
-- `<MSA>.geojson`: CBG or tract geometries and attributes for each region.
+- `<MSA>.geojson`: spatial-unit geometries and attributes for each region.
 - `selected_msa_county.csv`: county rosters for the study MSAs.
 - `Intra_Flow_<date>.csv`: daily intra-region OD flows.
 - `Intra_Degree_<date>.csv`: daily in-degree and out-degree summaries.
@@ -34,9 +30,10 @@ Typical processed inputs and outputs include:
 
 - `sldr_fit_msa.R`: Fits the Spatial Lag Decay Autoregressive (SLDR) model for each MSA and day. The script builds multi-lag adjacency matrices, estimates $\rho$ under no-decay, power-law, and exponential-decay specifications, generates fitted outflows, and reports model-performance metrics.
 - `sldr_fit_county.R`: Repeats the SLDR workflow at county scale.
-- `sldr_fit_msa_half_year.R` and `sldr_fit_msa_error.R`: Support extended-window and error-analysis variants of the MSA fitting workflow.
+- `sldr_fit_msa_error.R`: Evaluates model-fitting sensitivity to alternative loss functions and performance metrics.
+- `sldr_fit_msa_half_year.R`: Supports extended-window COVID-19 analyses.
 - `sldr_fit_MAUP.R`: Re-estimates $\rho$ under alternative spatial representations, including CBG-to-tract aggregation and rook versus queen contiguity.
-- `sldr_fit_japan.R` and `sldr_fit_japan_0.5km.R`: Apply the SLDR framework to the YJMob100K Japanese metropolitan mobility data at grid-based resolutions.
+- `sldr_fit_japan.R`: Applies the SLDR framework to YJMob100K Japanese metropolitan mobility data at multiple grid resolutions.
 
 Main SLDR outputs include:
 
@@ -44,60 +41,60 @@ Main SLDR outputs include:
 - `*_SLDR_fit_*.csv`: empirical versus fitted outflows.
 - `SLDR_r2_*.csv`, `SLDR_rank_cor_*.csv`, and related metric files: model-performance summaries.
 
-## Null models and perturbation experiments
+## Null flow models and perturbation experiments
 
-- `synthetic_flow.R`: Generates synthetic mobility flows from gravity- and radial-style null models.
-- `fig_SI_synthetic_flow.R` and `fig_diff_synthetic_flow.R`: Compare empirical $\rho$ with null-model $\rho$, quantify empirical-null discrepancies, and summarize statistical evidence.
-- `perturb_experiment.R`: Runs controlled perturbation experiments that separate uniform changes in total mobility volume from spatial reorganization of flows.
-- `fig_SI_perturb_experiment.R`: Visualizes how different perturbation mechanisms affect $\rho$.
-- `uncertainty_noise.R`, `rho_CI.R`, and `rho_CI_table.R`: Estimate uncertainty in $\rho$ using perturbation or confidence-interval procedures.
-
-These scripts support the revised manuscript's distinction between edge-level distance decay and node-level spatial coherence, as well as the robustness and uncertainty analyses.
+- `synthetic_flow.R`: Generates gravity- and radial-style null flow models used to test whether pairwise distance and population constraints can reproduce empirical node-level spatial coherence.
+- `fig2.R`: Generates revised Fig. 2, including the empirical versus null-model comparison, empirical-null $\rho$ discrepancies, the data-driven regime split, and flow-distance correlation analyses.
+- `reply_fig_SI_synthetic_flow.R`: Produces supplementary reviewer-response summaries and statistical evidence for the null-model comparison.
+- `perturb_experiment.R`: Runs controlled perturbation experiments separating uniform mobility-volume changes from spatial reorganization of flows.
+- `fig3.R`: Generates revised Fig. 3, including disruption-induced changes in $\rho$, $E_{inter}$ and $E_{normal}$ comparisons, and perturbation-experiment summaries.
+- `reply_fig_SI_rho_comp_covid.R`: Supports the revised $E_{inter}$ and $E_{normal}$ analyses for COVID-19.
+- `reply_fig_SI_perturb_experiment.R`: Supports the revised perturbation-experiment analysis.
+- `reply_fig_SI_data_bias.R`: Checks sensitivity to data-coverage or sampling-bias concerns.
 
 ## Epidemic simulations
 
 - `spreading_model.R`: Simulates a spatially correlated SIR model in which $\rho$ controls the decay of mobility-driven exposure across topological lags.
-- `fig2_SIR.R`, `fig_SI_SIR.R`: Summarize infection-curve sensitivity to $\rho$, infection rate $\beta$, and recovery rate $\mu$.
+- `fig4.R`: Generates revised Fig. 4, including COVID-19 severity versus changes in $\rho$, representative SIR infection trajectories under $-3\%$, `0\%`, and `+3\%` perturbations of $\rho$, and peak-infection changes under $\pm3\%$, $\pm6\%$, and $\pm9\%$ perturbations.
+- `fig_SI_SIR.R`: Generates supplementary SIR sensitivity analyses, including sensitivity to $\rho$ and simulations across infection rate $\beta$ and recovery rate $\mu$.
 
 Simulation outputs include:
 
-- `SIR_model_*.csv`: averaged epidemic trajectories.
-- `SIR_model_rho_*.csv`: epidemic outcomes under perturbations of $\rho$.
+- `SIR_model_as_*.csv`: epidemic trajectories generated for the revised SIR analysis.
 
-The simulations are scenario analyses rather than calibrated forecasts. They are used to test how realistic changes in spatial coherence can reshape epidemic peak height and timing.
+The simulations are scenario analyses rather than calibrated forecasts. They are used to test how changes in spatial coherence can reshape epidemic peak height and timing.
 
 ## Figure generation
 
-Main figure scripts keep their manuscript-oriented names. Supplementary analysis scripts use the `fig_SI_` prefix followed by an analytical-purpose description.
-
 ### Main manuscript figures
 
-- `fig1_a_c.R`: Generates conceptual panels for the spatial adjacency network, spatial lags, and exponential lag decay used to define $\rho$.
-- `fig1_d_i.R`: Generates MSA and county estimates of $\rho$, population comparisons, and empirical-versus-model mobility snapshots for selected MSAs.
-- `fig2.R`: Generates the empirical versus null-model comparison for node-level spatial coherence beyond pairwise distance decay.
-- `fig3.R`: Generates disruption analyses, including percentage changes in $\rho$, effect-size comparisons against inter-city and within-city variability, and perturbation-experiment summaries.
-- `fig4.R`: Generates COVID-19 association and spatially correlated SIR simulation panels.
+- `fig1_a_c.R`: Generates Fig. 1a-c, including conceptual panels for the spatial adjacency network, spatial lags, and exponential lag decay used to define $\rho$.
+- `fig1_d_i.R`: Generates Fig. 1d-i, including MSA and county estimates of $\rho$, population comparisons, and empirical-versus-model mobility snapshots for selected MSAs.
+- `fig2.R`: Generates Fig. 2, including edge-level distance decay versus node-level spatial coherence, null-model comparisons, empirical-null discrepancies, and the regime split.
+- `fig3.R`: Generates Fig. 3, including disruption-induced percentage changes in $\rho$, $E_{inter}$ and $E_{normal}$ comparisons, and perturbation-experiment summaries.
+- `fig4.R`: Generates Fig. 4, including COVID-19 severity associations and spatially correlated SIR simulation panels.
 
 ### Supplementary figure scripts
 
-- `fig_SI_lag_expansion.R`: Shows queen-contiguity lag expansion.
-- `fig_SI_model_performance.R`: Compares SLDR model performance across decay specifications.
+- `fig_SI_lag_expansion.R`: Generates supplementary lag-expansion results for queen-contiguity neighborhoods.
+- `fig_SI_model_performance.R`: Compares SLDR model performance across decay specifications and loss functions.
 - `fig_SI_model_fit_maps_residuals.R`: Shows empirical/model maps and residual diagnostics.
-- `fig_SI_covid_case_alignment.R`: Aligns COVID-19 case trajectories with $\rho$ changes.
-- `fig_SI_covid_case_alignment_half_year.R`: Extends the COVID-19 case-alignment analysis over a longer window.
-- `fig_SI_covid_distance_commute_sir_legacy.R`: Combined COVID, OD distance, commuting, and SIR analyses.
-- `fig_SI_od_distance_commute.R`: Generates OD travel-distance and commuting-mode analyses.
-
-### Other supplementary analyses kept under original names
-
-- `fig_SI_uncertainty_noise.R`, `fig_SI_rho_CI.R`: Report uncertainty and confidence intervals for $\rho$.
-- `fig_SI_rho_comp_covid.R`, `fig_SI_rho_comp_all.R`: Compare changes in $\rho$ across COVID-19 and other disruptive events.
-- `fig_SI_data_bias.R`: Checks sensitivity to data-coverage or sampling-bias concerns.
+- `fig_SI_uncertainty_noise.R`: Reports perturbation-based uncertainty of $\rho$ and representative 95% confidence intervals.
 - `fig_SI_MAUP.R`: Tests sensitivity of $\rho$ to spatial aggregation and contiguity definition.
 - `fig_SI_cbg_area.R`: Summarizes CBG and tract area distributions and their associations with $\rho$.
-- `rho_geo_var.R`, `fig_SI_rho_geo_var.R`, `fig_SI_rho_geo_var_mean.R`, `fig_SI_rho_geo_var_contr.R`, and `fig_SI_rho_geo_var_contr_mean.R`: Estimate and visualize how geographic structure, CBG area, mobility behavior, and urban morphology explain cross-city variation in $\rho$.
-- `fig_SI_rho_japan.R`: Validates the SLDR framework on Japanese metropolitan mobility data and evaluates sensitivity to grid resolution.
+- `fig_SI_od_distance_commute.R`: Generates OD travel-distance and commuting-mode analyses.
+- `fig_SI_rho_geo_var.R` and `fig_SI_rho_geo_var_mean.R`: Visualize associations between $\rho$ and geographic, mobility, and urban-morphology covariates using median or mean CBG area.
+- `fig_SI_rho_geo_var_contr.R` and `fig_SI_rho_geo_var_contr_mean.R`: Visualize covariate-block contributions using median or mean CBG area.
+- `fig_SI_rho_japan.R`: Validates the SLDR framework on YJMob100K Japanese metropolitan mobility data and evaluates sensitivity to grid resolution.
+- `fig_SI_SIR.R`: Generates supplementary SIR analyses for $\rho$ and epidemiological-parameter sensitivity.
 
+## Tables and uncertainty analyses
+
+- `uncertainty_noise.R`: Generates perturbation-based uncertainty estimates used by `fig_SI_uncertainty_noise.R`.
+- `rho_CI_table.R`: Produces confidence-interval tables for alternative decay kernels.
+- `rho_CI.R`: Computes confidence-interval inputs for the SLDR estimates.
+- `CI.R`: Provides confidence-interval helper routines.
+- `rho_geo_var.R`: Fits statistical models relating $\rho$ to urban size, spatial-unit area, mobility structure, and urban morphology.
 
 ## Data access
 
@@ -108,8 +105,7 @@ Raw SafeGraph mobility data are subject to access restrictions and are not redis
 1. Update the path variables in `sldr_global_vars_funs.R` and in each script's workpath block to match your local directory layout.
 2. Run data-preparation scripts before model-fitting scripts.
 3. Run SLDR fitting scripts before figure scripts that depend on estimated $\rho$.
-4. Run null-model, perturbation, MAUP, Japan-validation, and SIR scripts before their corresponding main or supplementary figure scripts.
-5. Use a fixed spatial representation when comparing $\rho$ across cities or over time. Cross-city comparisons are most meaningful when spatial units and adjacency definitions are held constant.
-
-
-
+4. Run `synthetic_flow.R` before `fig2.R` and `reply_fig_SI_synthetic_flow.R`.
+5. Run `perturb_experiment.R` before `fig3.R` and `reply_fig_SI_perturb_experiment.R`.
+6. Run `spreading_model.R` before `fig4.R` and `fig_SI_SIR.R`.
+7. Use a fixed spatial representation when comparing $\rho$ across cities or over time. Cross-city comparisons are most meaningful when spatial units and adjacency definitions are held constant.

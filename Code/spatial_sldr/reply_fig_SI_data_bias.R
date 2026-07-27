@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Dataset description & bias
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -482,12 +482,12 @@ cbg_presence <- merge(
   all.x = TRUE
 )
 cbg_presence[, period := str_to_title(period)]
-# Number of unique observed days per msa×period
+# Number of unique observed days per msa脳period
 period_days <- cbg_presence[, .(
   n_period_days = uniqueN(day)
 ), by = .(msa, period)]
 
-# CBG presence: how many days each CBG appears within each msa×period
+# CBG presence: how many days each CBG appears within each msa脳period
 cbg_stability <- cbg_presence[, .(
   n_days = uniqueN(day)
 ), by = .(msa, period, origin_census_block_group)]
@@ -564,14 +564,14 @@ fig_A5_covrate <- ggplot(cbg_stability, aes(x = coverage_rate)) +
   labs(x = "Coverage rate within period (n_days / n_period_days)", y = "Number of CBGs") +
   theme_bw()
 
-# (Fig A5-3) MSA-level churn summary: median coverage with 10–90% band
+# (Fig A5-3) MSA-level churn summary: median coverage with 10鈥?0% band
 fig_A5_msa_cov <- ggplot(cbg_stability_msa, aes(x = reorder(msa, p50_cov), y = p50_cov)) +
   geom_errorbar(aes(ymin = p10_cov, ymax = p90_cov), width = 0.2, linewidth = 0.6) +
   geom_point(size = 2.5) +
   coord_flip() +
   facet_wrap(~ period, nrow = 1) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(x = "MSA", y = "CBG coverage rate (median; 10th–90th percentile)") +
+  labs(x = "MSA", y = "CBG coverage rate (median; 10th鈥?0th percentile)") +
   theme_bw()
 
 # (Fig A5-4) Candidate device pool stability (if available)
@@ -584,3 +584,4 @@ if (!is.null(pool_msa) && has_candidate) {
     labs(x = "Date", y = "Total candidate devices (MSA-level sampling pool)") +
     theme_bw()
 }
+

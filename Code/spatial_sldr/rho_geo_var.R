@@ -9,22 +9,22 @@
 # The rank-size distribution as an indicator for mono/polycentricity.
 
 
-#---------- Work paths ----------#
+#----------Workpath----------#
 setwd("D:/ood/")
-codepath <- "D:/ood/Code/spatial_sldr/spatial_sldr"
-geopath  <- "D:/ood/Data/Geo"
-flowpath <- "D:/ood/Data/Flow"
-datapath <- "D:/ood/Data/spatial_sldr"
+codepath <- 'D:/ood/Code/spatial_sldr'
+geopath  <- 'D:/ood/Data/Geo'
+flowpath <- 'D:/ood/Data/Flow'
+datapath <- 'D:/ood/Data/spatial_sldr'
 
 
-#---------- Load packages ----------#
+#----------Load packages----------#
 library(sf)        # st_read(), st_transform(), geometry operations
 library(spdep)     # poly2nb() etc. (used in SLDR pipeline)
 library(igraph)    # network metrics (e.g., diameter)
 library(geosphere) # distm(), distHaversine
 
 
-#---------- Load MSAs ----------#
+#----------Load msa----------#
 Dname.msa <- c("Atlanta",
                "Boston",
                "Chicago",

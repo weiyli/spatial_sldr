@@ -1,11 +1,11 @@
-﻿# rm(list = ls())
+# rm(list = ls())
 
 # depend on figure from fig_SI_covid_case_alignment.R, fig2_SIR.R
 # depend on data from spreading_model.R
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath.msa <- 'D:/ood/Data/spatial_sldr'
@@ -47,35 +47,36 @@ rho_covid <- fread(paste0(datapath.msa, "/msa/SLDR_params_", Yname[yindex], ".cs
 #-------------------------
 # Part 1: change in rho and confirmed cases for COVID-19
 #-------------------------
-# #----------data: confirmed cases for COVID-19----------#
-# con.us <- fread(paste0(datapath.dis, "/us-counties-daily-cumulative-case.csv"))
-# con.us$fips <- str_pad(con.us[,1], width = 5, pad = "0")
-# con.date <- as.Date(sub("X", "", colnames(con.us[,-1])), format = "%Y%m%d")
-# cases <- NULL
-# for(d in 1:Nmsa){
-#   
-#   Dname<<-Dname.set[d]
-#   source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
-#   date.gif<-date.sep(Datevalue,durdate)
-#   
-#   Dname<<-Dname.set[d]
-#   source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
-#   date.gif <- date.sep(Datevalue,durdate)
-#   
-#   #----------BlockID, NBlock----------#
-#   block.msa <- sf::read_sf(paste(geopath,"/msa/",Dname,".geojson",sep=""))
-#   block.msa$CountyID <- str_pad(block.msa$CensusBlockGroup, width = 12, pad = "0")
-#   block.msa$CountyID <- substring(block.msa$CountyID,first=1,last=5)
-#   CountyID <- unique(block.msa$CountyID)
-#   con.county <- subset(con.us,fips%in%CountyID)
-#   con <- data.frame(day=con.date, case=colSums(con.county[,-1]))
-#   rownames(con) <- NULL
-#   con <- con %>% arrange(day) %>% mutate(new_case = case - lag(case, default = first(case)))
-#   con <- subset(con, day%in%Datevalue)
-#   con$msa <- Dname
-#   cases <- plyr::rbind.fill(cases, con)
-# }
-# write.csv(cases,file=paste(datapath.dis,"/us-msas-daily-cumulative-case.csv",sep=""),row.names = FALSE)
+#----------data: confirmed cases for COVID-19----------#
+con.us <- fread(paste0(datapath.dis, "/us-counties-daily-cumulative-case.csv"))
+con.us$fips <- str_pad(con.us[,1], width = 5, pad = "0")
+con.date <- as.Date(sub("X", "", colnames(con.us[,-1])), format = "%Y%m%d")
+cases <- NULL
+for(d in 1:Nmsa){
+
+  Dname<<-Dname.set[d]
+  source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
+  date.gif<-date.sep(Datevalue,durdate)
+
+  Dname<<-Dname.set[d]
+  source(paste(codepath,"/sldr_global_vars_funs.R",sep=""))
+  date.gif <- date.sep(Datevalue,durdate)
+
+  #----------BlockID, NBlock----------#
+  block.msa <- sf::read_sf(paste(geopath,"/msa/",Dname,".geojson",sep=""))
+  block.msa$CountyID <- str_pad(block.msa$CensusBlockGroup, width = 12, pad = "0")
+  block.msa$CountyID <- substring(block.msa$CountyID,first=1,last=5)
+  CountyID <- unique(block.msa$CountyID)
+  con.county <- subset(con.us,fips%in%CountyID)
+  con <- data.frame(day=con.date, case=colSums(con.county[,-1]))
+  rownames(con) <- NULL
+  con <- con %>% arrange(day) %>% mutate(new_case = case - lag(case, default = first(case)))
+  con <- subset(con, day%in%Datevalue)
+  con$msa <- Dname
+  cases <- plyr::rbind.fill(cases, con)
+}
+write.csv(cases,file=paste(datapath.dis,"/us-msas-daily-cumulative-case.csv",sep=""),row.names = FALSE)
+
 
 #----------percent change of median rho and confirmed cases for COVID-19----------#
 con.msa <- fread(paste0(datapath.dis,"/us-msas-daily-cumulative-case.csv"))
@@ -280,7 +281,9 @@ sir.peak.change <- sir.peak.change[det.rho%in%c(-0.09,-0.06,-0.03,0.03,0.06,0.09
 fig_sir_pop <- ggplot(sir.peak.change[metric=="Change in peak number of infections"], aes(x = factor(det.rho), y = change, fill = msa)) +
   geom_bar(stat = "identity", position = "dodge", width = 0.6, color = "white") +
   geom_abline(intercept = 0, slope = 0, linetype = "dashed", linewidth = 1, color = "gray") +
-  geom_text(aes(label = scales::comma(round(change)), color = msa, 
+  geom_text(aes(# label = scales::comma(round(change)), 
+                label = scales::comma(round(change, digits = -3)),
+                color = msa, 
                 hjust = ifelse(msa == "Atlanta", 0.5, 0.5),
                 vjust = ifelse(change < 0,  1.5 * ifelse(msa == "Atlanta", 1.5, 1), -0.3 * ifelse(msa == "Atlanta", 1.5, 1))),  
             size = 4, position = position_dodge(width = 0.6), alpha = 1, show.legend = FALSE) +

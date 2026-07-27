@@ -3,7 +3,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -42,7 +42,7 @@ Dname<<-Dname.set[d]
 
 
 #-------------------------
-# Part 1: |Δrho_COVID|/inter-city variation in rho, |Δrho_COVID|/normal daily variation in rho
+# Part 1: |螖rho_COVID|/inter-city variation in rho, |螖rho_COVID|/normal daily variation in rho
 #-------------------------
 #-------------------------
 # 1) City-level mean rho by period and one-week COVID-induced changes (delta rho)
@@ -59,13 +59,13 @@ Sys.setlocale("LC_TIME", "C")
 rho_all[, wday := weekdays(day)]
 
 #-------------------------
-# Analysis 1: |Δrho_COVID| vs inter-city variation in rho
+# Analysis 1: |螖rho_COVID| vs inter-city variation in rho
 #-------------------------
-# |Δrho| per city |COVID - normal|
+# |螖rho| per city |COVID - normal|
 rho_wide <- dcast(rho_all, msa + wday ~ period, value.var = "rho")
 rho_wide[, delta_rho := during - before]
 rho_wide[, abs_delta_rho := abs(delta_rho)]
-# median(|Δrho|)
+# median(|螖rho|)
 rho_delta_city <- rho_wide[,  .(abs_delta_rho_covid = median(abs_delta_rho)), by = msa]
 # Inter-city SD of median rho in the normal period 
 rho_city_norm <- rho_wide[, .(rho_city = median(before, na.rm = TRUE)), by = msa]
@@ -104,21 +104,21 @@ mean(rho_delta_city$ratio_sd)
 
 
 #-------------------------
-# Analysis 2: |Δrho_COVID| vs null distribution of |Δrho| in normal period
-#   Δrho_null(t)=rho_{t+1}-rho_t  (within each city, normal period)
-#   Δrho_COVID(t)=rho_{t+1}-rho_t (within each city, COVID period)
+# Analysis 2: |螖rho_COVID| vs null distribution of |螖rho| in normal period
+#   螖rho_null(t)=rho_{t+1}-rho_t  (within each city, normal period)
+#   螖rho_COVID(t)=rho_{t+1}-rho_t (within each city, COVID period)
 #-------------------------
-# |Δrho| per city |COVID - normal|
+# |螖rho| per city |COVID - normal|
 rho_wide <- dcast(rho_all, msa + wday ~ period, value.var = "rho")
 rho_wide[, delta_rho := during - before]
 rho_wide[, abs_delta_rho := abs(delta_rho)]
-# median(|Δrho|)
+# median(|螖rho|)
 rho_delta_city <- rho_wide[,  .(abs_delta_rho_covid = median(abs_delta_rho)), by = msa]
 # Within-city SD of rho during normal period 
 rho_city_norm_sd <- rho_all[period == period_norm,
                             .(sd_rho_normal = sd(rho, na.rm = TRUE)),
                             by = msa]
-# Merge and compute E = |Δrho_COVID| / SD(rho_normal)
+# Merge and compute E = |螖rho_COVID| / SD(rho_normal)
 rho_delta_city <- merge(rho_delta_city, rho_city_norm_sd, by = "msa", all.x = TRUE)
 rho_delta_city[, ratio_sd := abs_delta_rho_covid / sd_rho_normal]
 # plot: a compact bar/point plot for ratio (one number per city)
@@ -248,7 +248,7 @@ delta_ci_city <- rho_pair[, {
 fwrite(delta_ci_city, paste0(datapath, "/msa/delta_rho_CI_", Yname[yindex], "_half_year.csv"))
 
 #-------------------------
-# 3) Figure: city-level Δrho with 95% CI
+# 3) Figure: city-level 螖rho with 95% CI
 #-------------------------
 fig_delta_ci <- ggplot(delta_ci_city, aes(x = reorder(msa, ci_med), y = ci_med)) +
   geom_errorbar(aes(ymin = ci_low, ymax = ci_high, color = msa), width = 0.2, linewidth = 0.6) +
@@ -345,13 +345,13 @@ rho_all[period == "before", week_pair := week_id]
 rho_all[period == "during", week_pair := week_id - 5L]
 
 #-------------------------
-# Analysis 1: |Δrho_COVID| vs inter-city variation in rho  (5-week summary)
+# Analysis 1: |螖rho_COVID| vs inter-city variation in rho  (5-week summary)
 #-------------------------
-# |Δrho| per city-weekpair |during - before|
+# |螖rho| per city-weekpair |during - before|
 rho_wide <- dcast(rho_all, msa + week_pair ~ period, value.var = "rho", fun.aggregate = median)
 rho_wide[, delta_rho := during - before]
 rho_wide[, abs_delta_rho := abs(delta_rho)]
-# median(|Δrho|) across the 5 matched weeks -> one number per city
+# median(|螖rho|) across the 5 matched weeks -> one number per city
 rho_delta_city <- rho_wide[, .(abs_delta_rho_covid = median(abs_delta_rho, na.rm = TRUE)), by = msa]
 # Inter-city SD/IQR of median rho in the normal (before) period
 # (here: city-level median of the 5 pre weeks)
@@ -388,9 +388,9 @@ fig_city <- ggplot(rho_delta_city, aes(x = reorder(msa, ratio_sd), y = ratio_sd)
         legend.position = "none")
 
 #-------------------------
-# Analysis 2: |Δrho_COVID| vs within-city variation in normal period (5-week summary)
+# Analysis 2: |螖rho_COVID| vs within-city variation in normal period (5-week summary)
 #-------------------------
-# 5-week paired |Δrho| (city-level median)
+# 5-week paired |螖rho| (city-level median)
 rho_wide <- dcast(rho_all, msa + week_pair ~ period, value.var = "rho", fun.aggregate = median)
 rho_wide[, delta_rho := during - before]
 rho_wide[, abs_delta_rho := abs(delta_rho)]
@@ -399,7 +399,7 @@ rho_delta_city <- rho_wide[, .(abs_delta_rho_covid = median(abs_delta_rho, na.rm
 rho_city_norm_sd <- rho_all[period == period_norm,
                             .(sd_rho_normal = sd(rho, na.rm = TRUE)),
                             by = msa]
-# Merge and compute E = |Δrho_COVID| / SD(rho_normal)
+# Merge and compute E = |螖rho_COVID| / SD(rho_normal)
 rho_delta_city <- merge(rho_delta_city, rho_city_norm_sd, by = "msa", all.x = TRUE)
 rho_delta_city[, ratio_sd := abs_delta_rho_covid / sd_rho_normal]
 
@@ -438,8 +438,8 @@ ggsave(fig_comp, filename = paste(figpath, "/msa/SI_rho_comp_", Yname[yindex], "
 
 #-------------------------
 # Part 3: Effect-size benchmarks using pairwise weekday matching for 5 weeks
-#  - E_inter-city = median(|Δrho|) / SD( rho_inter-city baseline )
-#  - E_normal     = median(|Δrho|) / SD( rho_normal temporal )
+#  - E_inter-city = median(|螖rho|) / SD( rho_inter-city baseline )
+#  - E_normal     = median(|螖rho|) / SD( rho_normal temporal )
 #-------------------------
 #-------------------------
 # 1) Read and subset rho (5-week before & during windows)
@@ -473,7 +473,7 @@ rho_pair <- rho_b[rho_d, on = .(msa, week_name), allow.cartesian = TRUE]
 rho_pair[, delta_rho := (rho_d - rho_b) / rho_b]
 rho_pair <- rho_pair[is.finite(delta_rho)]
 
-# city-level shock strength (one number per city): median(|Δrho|)
+# city-level shock strength (one number per city): median(|螖rho|)
 rho_delta_city <- rho_pair[, .(
   abs_delta_rho_covid = median(abs(delta_rho), na.rm = TRUE)
 ), by = msa]
@@ -545,3 +545,4 @@ fig_normal <- ggplot(rho_delta_city, aes(x = reorder(msa, ratio_sd_normal), y = 
         legend.position = "none")
 fig_comp <- (fig_city | fig_normal) + patchwork::plot_annotation(tag_levels = "a") & theme(plot.tag = element_text(size = 20))
 ggsave(fig_comp, filename = paste0(figpath, "/msa/SI_rho_comp_", Yname[yindex], "_half_year.pdf"), width = 7*2, height = 7)
+

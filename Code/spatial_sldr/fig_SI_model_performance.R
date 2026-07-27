@@ -6,7 +6,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 #----------Part1: COVID-19----------#
@@ -452,4 +452,5 @@ p_delta <- ggplot(rho_delta_dt, aes(x = err_tag, y = delta)) +
   theme_wy() +
   theme(panel.border = element_rect(color="gray50", fill=NA, linewidth=0.5),
         axis.text.x = element_text(angle = 20, hjust = 1))
+
 

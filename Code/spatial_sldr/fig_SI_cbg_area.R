@@ -1,4 +1,4 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # [ CBG area distribution across MSAs ] [ CBG area and rho]
 # Save CBG-level area data and draw an SI_cbg_area distribution figure.
@@ -7,7 +7,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 datapath <- 'D:/ood/Data/spatial_sldr'
 figpath <- 'D:/ood/Figure/spatial_sldr'
@@ -1104,4 +1104,5 @@ ggsave(
   width = 4.6*2,
   height = 4*3
 )
+
 

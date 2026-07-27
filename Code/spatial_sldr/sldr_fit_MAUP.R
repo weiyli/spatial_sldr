@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # SLDR fitting and higer-order queen weight matrix at the msa level for rho estimation
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 
 
@@ -273,5 +273,6 @@ for(s in 2:Nregion){
     } # dis
   }# yindex
 }# region
+
 
 

@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
-# simulate the spatially correlated SIR (Susceptible–Infected–Recovered) model on a graph while varying the spatial range exponent rho to analyze its impact on disease spread dynamics.
+# simulate the spatially correlated SIR (Susceptible鈥揑nfected鈥揜ecovered) model on a graph while varying the spatial range exponent rho to analyze its impact on disease spread dynamics.
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -266,6 +266,7 @@ for(i in 1:length(dset)){
 # write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_all_",Yname[2],".csv",sep=""), row.names = FALSE) 0-0.9
 # write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_rho_",Yname[2],".csv",sep=""), row.names = FALSE)
 write.csv(sir.all, file=paste(datapath,"/msa/SIR_model_as_",Yname[2],".csv",sep=""), row.names = FALSE)
+
 
 
 

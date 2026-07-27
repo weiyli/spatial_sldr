@@ -1,13 +1,11 @@
-﻿# rm(list = ls())
+# rm(list = ls())
 
-
-# depend on figure from fig_SI_rho_comp_covid.R, fig_SI_covid_case_alignment.R, and fig_SI_perturb_experiment.R
-# depend on data from  xx, xx, and disturb_experiment.R
+# depend on data from disturb_experiment.R
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath.msa <- 'D:/ood/Data/spatial_sldr'

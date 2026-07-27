@@ -1,4 +1,4 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Mean-CBG-area version
 # [ rho vs travel distance ]   [ rho vs travel mode ]   [ rho vs area ]
@@ -7,7 +7,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -64,7 +64,7 @@ summarize_selection <- function(dd, best_fit, cand_fits, tag = "MODEL") {
   print(summary(best_fit))
   cat("\nR2 (Nakagawa):\n")
   print(safe_r2(update(best_fit, REML = TRUE)))  # R2 should be reported on REML fit
-  cat("\nVariable importance (sum of Akaike weights) within ΔAICc<=2:\n")
+  cat("\nVariable importance (sum of Akaike weights) within 螖AICc<=2:\n")
   print(sw(cand_fits))
   cat("\nTop 10 models by AICc:\n")
   print(as.data.table(dd)[1:min(10, nrow(dd))])
@@ -633,6 +633,7 @@ fig.r2.core <- ggplot(core_all, aes(x = group, y = y)) +
 fig.rho.var.r2 <- (fig.r2.decomp | fig.r2.core) + plot_layout(widths = c(0.7, 2), guides = "collect") +
   plot_annotation(tag_levels = "a") & theme(plot.tag = element_text(size = 20), legend.position = "right", legend.justification = c(0, 0.5))
 ggsave(fig.rho.var.r2, filename = paste(figpath,"/msa/SI_rho_var_r2_",Yname[yindex],"_mean.pdf",sep=""), width =4*4, height = 4.5*1)
+
 
 
 

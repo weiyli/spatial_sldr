@@ -1,12 +1,12 @@
 # rm(list = ls())
 
 # Relative uncertainty of rho
-# profile loss L(ρ) curve
+# profile loss L(蟻) curve
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 #----------Part1: COVID-19----------#
@@ -229,4 +229,5 @@ ci_day_wide <- dcast(
 #========================================================
 print(ci_interval_summary[order(msa, case)])
 print(ci_interval_wide[order(msa)])
+
 

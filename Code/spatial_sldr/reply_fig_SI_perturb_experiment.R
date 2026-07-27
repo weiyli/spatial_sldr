@@ -1,12 +1,12 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Data from disturb_experiment.R
-# Δrho vs disturb (by scenario) with 95% CI
+# 螖rho vs disturb (by scenario) with 95% CI
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 #----------Part1: COVID-19----------#
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -105,7 +105,7 @@ dt_dist <- dt_dist[scenario %in% scenario_set]
 dt_dist <- dt_dist[disturb %in% disturb_set]
 
 #-----------------------------
-# 2) Join baseline by (msa, base_day) and compute Δrho
+# 2) Join baseline by (msa, base_day) and compute 螖rho
 #-----------------------------
 dt2 <- dt_dist %>%
   left_join(dt_base, by = c("msa" = "msa", "base_day" = "day")) %>%
@@ -120,7 +120,7 @@ if (any(is.na(dt2$rho_base))) {
 }
 
 #-----------------------------
-# 3) Summarize mean ± 95% CI across replicates
+# 3) Summarize mean 卤 95% CI across replicates
 #-----------------------------
 sum_dt <- dt2 %>%
   group_by(msa, scenario, disturb) %>%
@@ -137,7 +137,7 @@ sum_dt <- dt2 %>%
 sum_dt$scenario <- factor(sum_dt$scenario, levels = scenario_set)
 
 #-----------------------------
-# 4) Plot Fig.1: Δrho vs disturb with 95% CI ribbon
+# 4) Plot Fig.1: 螖rho vs disturb with 95% CI ribbon
 #-----------------------------
 scenario_info <- data.frame(
   breaks = scenario_set,
@@ -197,5 +197,6 @@ fig_perturb <- ggplot(sum_dt, aes(x = disturb, y = mean_delta)) +
         strip.text = element_text(face = "plain",size=15),
         legend.position = "top")
 ggsave(fig_perturb, filename = paste(figpath,"/msa/SI_rho_perturb_",Yname[yindex],".pdf",sep=""), width = 4*2, height = 4.5)
+
 
 

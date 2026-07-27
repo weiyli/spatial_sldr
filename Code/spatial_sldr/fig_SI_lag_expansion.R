@@ -5,7 +5,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 #----------Part1: COVID-19----------#
@@ -356,6 +356,7 @@ for(s in 2:Nregion){
   ggsave(fig.queen,filename = paste(figpath,"/",region[s],"/SI_queen_lag.pdf",sep=""), width =5*3, height = 4*1)
   
 } # region
+
 
 
 

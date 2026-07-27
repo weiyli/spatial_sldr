@@ -1,17 +1,9 @@
-# [ ρ vs travel distance ]   [ ρ vs travel mode ]   [ ρ vs POI entropy ]
+# [ ρ vs travel distance ]   [ ρ vs travel mode ]   
 
 # rm(list = ls())
 
 # county level data from urban_sldr_fit.R; msa level data from sldr_fit.R
 
-
-#----------Workpath----------#
-setwd("/home/weiy.li/")
-codepath <- '/home/weiy.li/Code/spatial_sldr'
-geopath <- '/home/weiy.li/Data/Geo'
-flowpath <- '/home/weiy.li/Data/Flow'
-datapath <- '/home/weiy.li/Data/spatial_sldr'
-figpath <- '/home/weiy.li/Figure/spatial_sldr'
 
 #----------Workpath----------#
 setwd("D:/ood/")
@@ -23,7 +15,7 @@ figpath <- 'D:/ood/Figure/spatial_sldr'
 
 #----------Load packages----------#
 library(sf)          # read_sf() 
-library(spdep)       # poly2nb() https://blog.csdn.net/weixin_54000907/article/details/116247097
+library(spdep)       # poly2nb()
 library(gridExtra)
 library(ggtext)
 

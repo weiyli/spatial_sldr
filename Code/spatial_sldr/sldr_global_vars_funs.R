@@ -1,10 +1,5 @@
 # rm(list = ls())
 
-# install.packages("/home/wu.xinh/R/x86_64-pc-linux-gnu-library/4.2/COVID19_3.0.3.tar.gz", repos = NULL, type = "source")
-# library(COVID19)
-# data <- covid19()
-
-
 #----------Load data packages----------#
 library(data.table) # setDT
 library(plyr)       # rbind.fill()

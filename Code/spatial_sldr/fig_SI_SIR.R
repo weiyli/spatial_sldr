@@ -1,11 +1,11 @@
-﻿# rm(list = ls())
+# rm(list = ls())
 
-# fig2_brief.R + fig4.R
+# SI for fig4.R
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath.msa <- 'D:/ood/Data/spatial_sldr'
@@ -42,7 +42,7 @@ date.gif<-date.sep(Datevalue, durdate)
 
 
 #----------plot SIR results----------#
-E.msa <- F.msa <- list()
+E.msa <- F.msa <- G.msa <- list()
 yindex <- 2
 #----------data from the spreading_model.R----------#
 sir.model <- read.csv(paste(datapath.msa,"/msa/SIR_model_",Yname[yindex],".csv",sep=""), header=TRUE)
@@ -136,6 +136,33 @@ F.msa[[yindex]] <- ggplot(data = sir.model.time, aes(x = time, y = infected/pop)
 fig.rho.sir <- (E.msa[[yindex]]|F.msa[[yindex]]) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
 ggsave(fig.rho.sir,filename = paste(figpath,"/msa/SI_sir_rho_pop_",Yname[yindex],".pdf",sep=""), width = 6.8*2, height = 5)
 
+
+
+#----------plot infected rate for each msa with all (beta,mu)----------#
+dset <- unique(sir.model$msa)%>%sort
+dset <- c("Atlanta","San Francisco")
+sir.model$beta_lab <- paste0("beta==", sir.model$beta)
+sir.model$mu_lab   <- paste0("mu==", sir.model$mu)
+for(d in 1:length(dset)){
+  G.msa[[d]] <- ggplot(data = subset(sir.model,msa==dset[d]), aes(x = time, y = infected/pop)) +
+    geom_line(aes(color = rho, group = rho), linewidth = 0.8) +
+    facet_grid(mu_lab ~ beta_lab, scales = "fixed", labeller = label_parsed) +
+    scale_colour_gradientn(name = dset[d], colors = col.fit) +
+    labs(x = "Time", y = "Infected fraction", title = NULL) +
+    xlim(0, 400) +  
+    theme_wy() +
+    theme(panel.background = element_blank(),
+          panel.grid.major.x = element_line(color = "gray90", linetype = "dashed"),
+          panel.grid.major.y =  element_line(color = "gray90", linetype = "dashed"),
+          panel.spacing = unit(0.1, "lines"),
+          axis.line.x.bottom = element_line(color = "black", linewidth = 0.5), 
+          strip.text = element_text(face = "plain", size = 15),
+          axis.text.y = element_text(hjust = 0),
+          legend.position = "right",
+          legend.justification = c(0, 0.5))
+}
+fig.rho.sir <- (G.msa[[1]]/G.msa[[2]]) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
+ggsave(fig.rho.sir,filename = paste(figpath,"/msa/SI_sir_beta_mu_",Yname[yindex],".pdf",sep=""), width = 6.8*2, height = 5*4)
 
 
 

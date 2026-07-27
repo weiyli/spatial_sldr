@@ -6,7 +6,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 
@@ -353,6 +353,7 @@ fig_adj <- ggplot(rho_pair_adj, aes(x = rho_queen, y = rho_rook)) +
 #--------------------------------------#
 fig_rho <- (fig_scale/fig_adj) + plot_annotation(tag_levels = 'a') & theme(plot.tag = element_text(size = 20))
 ggsave(fig_rho, filename = paste(figpath,"/msa/SI_rho_MAUP_",Yname[yindex],".pdf",sep=""), width = 4.6*2, height = 4*2)
+
 
 
 

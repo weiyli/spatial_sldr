@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # SLDR fitting at the MSA level for estimating rho over a 10-week period.
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -167,5 +167,6 @@ for(s in 2:Nregion){
     write.csv(dis.rho, file=paste(datapath,"/",region[s],"/SLDR_params_",Yname[yindex],"_half_year.csv",sep=""), row.names = FALSE)
   } # yindex
 } # region
+
 
 

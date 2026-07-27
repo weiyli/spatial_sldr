@@ -1,4 +1,4 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Data from synthetic_flow.R
 # Compare null rho (gravity and radiation models) with empirical rho
@@ -6,7 +6,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 #----------Part1: COVID-19----------#
@@ -274,6 +274,7 @@ build_test_table <- function(rho_cmp, B_perm = 5000, seed_perm = 1,
 #-----------------------------
 test_table <- build_test_table(rho_cmp, B_perm = 5000, seed_perm = 1)
 test_table
+
 
 
 

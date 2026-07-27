@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # SLDR fitting and higher-order queen weight matrix for Japan 500 m grids
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 datapath <- 'D:/ood/Data/spatial_sldr/japan'
 
 
@@ -355,3 +355,4 @@ write.csv(
   file=paste(datapath,"/SLDR_r2_",Yname[yindex],".csv",sep=""),
   row.names=FALSE
 )
+

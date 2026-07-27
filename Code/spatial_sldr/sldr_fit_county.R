@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # SLDR fitting and higer-order queen weight matrix for msa or county level for rho
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo/cbg'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -224,6 +224,7 @@ for(yindex in 1:Ynum){
   } # msa
   write.csv(dis.rho, file = paste(datapath,"/urban/SLDR_params_",Yname[yindex],".csv",sep=""), row.names = FALSE)
 } # yindex
+
 
 
 

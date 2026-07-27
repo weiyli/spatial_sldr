@@ -5,9 +5,9 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- "D:/ood/Code/spatial_sldr/spatial_sldr"
-datapath <- "D:/ood/Data/spatial_sldr/japan"
-figpath <- "D:/ood/Figure/spatial_sldr/msa"
+codepath <- 'D:/ood/Code/spatial_sldr'
+datapath <- 'D:/ood/Data/spatial_sldr/japan'
+figpath <- 'D:/ood/Figure/spatial_sldr/msa'
 dir.create(figpath, showWarnings = FALSE, recursive = TRUE)
 
 

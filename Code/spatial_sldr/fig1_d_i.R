@@ -5,7 +5,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -400,5 +400,6 @@ for(yindex in 2:2){
 } # Yname
 fig.rho.fit <- ((A.msa[[2]]/B.msa[[2]])|((C.msa[[1]]|D.msa[[1]])/(C.msa[[2]]|D.msa[[2]]))) + plot_layout(widths = c(3, 4)) + plot_annotation(tag_levels = list(letters[4:9])) & theme(plot.tag = element_text(size = 20))
 ggsave(fig.rho.fit, filename = paste(figpath,"/msa/brief_rho_fit_",Yname[yindex],".pdf",sep=""), width = 4*4, height = 4*2)
+
 
 

@@ -1,13 +1,13 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 # Mean-CBG-area version
 
-# [ ρ vs travel distance ]   [ ρ vs travel mode ]   [ ρ vs area ]
+# [ 蟻 vs travel distance ]   [ 蟻 vs travel mode ]   [ 蟻 vs area ]
 # county level data from urban_sldr_fit.R; msa level data from sldr_fit.R; variable from rho_geo_var.R
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -251,7 +251,7 @@ for(yindex in 2:2){
   
   # format label (R2 + stars)
   stats_r2[, stars := fifelse(pval < 0.001, "***", fifelse(pval < 0.01,  "**", fifelse(pval < 0.05,  "*", "")))]
-  # R2+ p-value：
+  # R2+ p-value锛?
   # stats_r2[, label := sprintf("R^2 = %.2f%s", R2, stars)]
   stats_r2[, label := sprintf(
     "R^2 == %.2f*'%s,'~'\n'~italic(r) == %.2g",
@@ -898,4 +898,5 @@ ggsave(
   width = 4 * 4,
   height = 4.5 * 3
 )
+
 

@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Null flow models (gravity model and radiation model) -> synthetic rho
 # Correlation between flow (Tij) and distance (dij)
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 
 #----------Load packages----------#
@@ -392,6 +392,7 @@ write.csv(flow_dist_corr, file = paste(datapath,"/msa/flow_dist_corr.csv",sep=""
 
   
   
+
 
 
 

@@ -1,4 +1,4 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # Interpreting the gap between null and empirical rho
 # Null and empirical rho, correlation between Tij and dij from synthetic_flow.R; msa level data from sldr_fit.R
@@ -6,7 +6,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -595,6 +595,7 @@ fig_edge_node <- (p1 / p2) + plot_annotation(tag_levels = list(letters[1:2])) & 
 fig_edge_node
 # save
 ggsave(plot = fig_edge_node, filename = paste(figpath, "/msa/fig2_frame.pdf", sep = ""), width = 4, height = 8)
+
 
 
 

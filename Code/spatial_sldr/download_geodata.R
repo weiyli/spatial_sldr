@@ -1,11 +1,11 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # obtain the data from the census.
 
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 
 
@@ -47,6 +47,7 @@ county_2019_wgs84 <- st_transform(county_2019, crs = 4326)
 county_2019_boundaries <- county_2019_wgs84  %>% select(GEOID, NAME, NAMELSAD, geometry) 
 names(county_2019_boundaries)<-c("county_fips","county_name","county_namelsad","geometry")
 st_write(county_2019_boundaries, paste(geopath, "/census/tigris_county_boundary_2010_2019.geojson", sep=""), delete_dsn = TRUE)
+
 
 
 

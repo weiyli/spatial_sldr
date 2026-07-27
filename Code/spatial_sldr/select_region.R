@@ -1,4 +1,4 @@
-# rm(list = ls())
+﻿# rm(list = ls())
 
 # select the region: msa and county
 
@@ -12,7 +12,7 @@
 
 #----------Workpath----------#
 setwd("D:/ood/")
-codepath <- 'D:/ood/Code/spatial_sldr/spatial_sldr'
+codepath <- 'D:/ood/Code/spatial_sldr'
 geopath <- 'D:/ood/Data/Geo'
 flowpath <- 'D:/ood/Data/Flow'
 datapath <- 'D:/ood/Data/spatial_sldr'
@@ -185,6 +185,7 @@ f2 <- ggplot() +
   ggtitle(paste0("CBG: ",Dname))
 
 f0|f1|f2
+
 
 
 
