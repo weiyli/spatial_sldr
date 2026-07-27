@@ -4,7 +4,7 @@ All code used in this study is available at <https://github.com/weiyli/spatial_s
 
 This repository contains the analysis workflow for the spatial range exponent, $\rho$, a system-level measure of spatial mobility coherence. The workflow estimates how mobility-driven spatial correlations decay across adjacency-based urban networks, compares empirical estimates with distance-based null flow models, evaluates changes during disruptions, and links $\rho$ to spatially correlated epidemic dynamics.
 
-This README is synchronized with the revised manuscript, **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Reviewer-response scripts that support revised analyses are kept with the `reply_` prefix.
+This README is synchronized with the revised manuscript, **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Scripts with the `reply_` prefix are analyses used during the response to reviewers and retained to document the revision-round checks.
 
 ## Repository structure
 
@@ -55,7 +55,7 @@ Main SLDR outputs include:
 ## Epidemic simulations
 
 - `spreading_model.R`: Simulates a spatially correlated SIR model in which $\rho$ controls the decay of mobility-driven exposure across topological lags.
-- `fig4.R`: Generates revised Fig. 4, including COVID-19 severity versus changes in $\rho$, representative SIR infection trajectories under $-3\%$, `0\%`, and `+3\%` perturbations of $\rho$, and peak-infection changes under $\pm3\%$, $\pm6\%$, and $\pm9\%$ perturbations.
+- `fig4.R`: Generates revised Fig. 4, including COVID-19 severity versus changes in $\rho$, representative SIR infection trajectories under -3%, 0%, and +3% perturbations of $\rho$, and peak-infection changes under ±3%, ±6%, and ±9% perturbations.
 - `fig_SI_SIR.R`: Generates supplementary SIR sensitivity analyses, including sensitivity to $\rho$ and simulations across infection rate $\beta$ and recovery rate $\mu$.
 
 Simulation outputs include:
@@ -109,3 +109,5 @@ Raw SafeGraph mobility data are subject to access restrictions and are not redis
 5. Run `perturb_experiment.R` before `fig3.R` and `reply_fig_SI_perturb_experiment.R`.
 6. Run `spreading_model.R` before `fig4.R` and `fig_SI_SIR.R`.
 7. Use a fixed spatial representation when comparing $\rho$ across cities or over time. Cross-city comparisons are most meaningful when spatial units and adjacency definitions are held constant.
+
+
