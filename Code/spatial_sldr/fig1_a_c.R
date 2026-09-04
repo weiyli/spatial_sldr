@@ -87,7 +87,8 @@ for(i in c(1,2)){
 }
 dis.edges <- distinct(edges)
 colnames(dis.edges) <- c("from", "to","lag")
-s1<-data.frame(from=1:NBlock,to=1:NBlock,lon=block.msa$lon,lat=block.msa$lat)
+# s1<-data.frame(from=1:NBlock,to=1:NBlock,lon=block.msa$lon,lat=block.msa$lat)
+s1<-data.frame(from=as.character(1:NBlock),to=as.character(1:NBlock),lon=block.msa$lon,lat=block.msa$lat)
 s2<-left_join(dis.edges,s1,by="from")
 s3<-left_join(dis.edges,s1,by="to")
 dis.edges$Olon<-s2$lon

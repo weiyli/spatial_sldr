@@ -1,4 +1,4 @@
-﻿# rm(list = ls())
+# rm(list = ls())
 
 # Interpreting the gap between null and empirical rho
 # Null and empirical rho, correlation between Tij and dij from synthetic_flow.R; msa level data from sldr_fit.R
@@ -217,36 +217,44 @@ corr_summary[, msa_col := factor(msa_col, levels = ordered_labels)]
 
 corr_summary[corr_name=="spearman_adjusted"]
 
-fig_corr <- ggplot(corr_summary[corr_name=="spearman_adjusted"], aes(x = msa_col, y = med, fill = cate)) +
-  geom_bar(stat = "identity", position = position_dodge(width = 0.7), width = 0.5) +
-  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci), color = "gray",
-                position = position_dodge(width = 0.15), width = 0.25) +
-  scale_fill_manual(name = TeX("$\\rho_{Model}$"),
-                    breaks = cate.info$breaks,
-                    labels = cate.info$labels,
-                    values = scales::alpha(cate.info$col, alpha = 0.8)) +
-  scale_color_manual(name = TeX("$\\rho_{Model}$"),
-                     breaks = cate.info$breaks,
-                     labels = cate.info$labels,
-                     values = cate.info$col) +
-  # scale_fill_manual(name = TeX("$\\rho_{Model}$ category"),
-  #                   breaks = c("lower", "higher"),
-  #                   labels = c(TeX("Low $\\rho_{Model}$"), TeX("High $\\rho_{Model}$")),
-  #                   values = scales::alpha(cate.info$col, alpha = 0.8)) +
-  # scale_color_manual(name = TeX("$\\rho_{Model}$ category"),
-  #                    breaks = c("lower", "higher"),
-  #                    labels = c(TeX("Low $\\rho_{Model}$"), TeX("High $\\rho_{Model}$")),
-  #                    values = cate.info$col) +
-  labs(x = "MSA", y = TeX('Spearman $\\textit{r_s}$ (flow vs. distance)')) +
+corr_plot <- merge(
+  corr[corr_name == "spearman_adjusted"],
+  corr_summary[corr_name == "spearman_adjusted", .(msa, msa_col, cate)],
+  by = c("msa","cate"),
+  all.x = TRUE
+)
+corr_plot[, msa_col := factor(msa_col, levels = ordered_labels)]
+
+fig_corr <- ggplot(corr_plot, aes(x = msa_col, y = corr_value, fill = cate, color = cate)) +
+  geom_boxplot(width = 0.5, outlier.shape = NA, alpha = 0.65, linewidth = 0.5) +
+  geom_point(
+    position = position_jitter(width = 0.12, height = 0),
+    size = 1.5,
+    alpha = 0.75
+  ) +
+  scale_fill_manual(
+    name = TeX("$\\rho_{Model}$"),
+    breaks = cate.info$breaks,
+    labels = cate.info$labels,
+    values = scales::alpha(cate.info$col, alpha = 0.8)
+  ) +
+  scale_color_manual(
+    name = TeX("$\\rho_{Model}$"),
+    breaks = cate.info$breaks,
+    labels = cate.info$labels,
+    values = cate.info$col
+  ) +
+  labs(x = "MSA", y = TeX("Spearman $\\textit{r_s}$ (flow vs. distance)")) +
   theme_wy() +
-  theme(panel.background = element_blank(),
-        panel.spacing = unit(1, "lines"),
-        panel.border = element_rect(color = "gray", fill = NA, linewidth = 0.5), 
-        strip.background = element_rect(fill = "#f0f0f0", color = "gray", linewidth = 0.5),
-        # axis.text.x = element_text(angle = 30, hjust = 1),
-        axis.text.x = ggtext::element_markdown(angle = 30, hjust = 1, size = rel(1)),
-        strip.text = element_text(face = "plain",size = 15),
-        legend.position = "right")
+  theme(
+    panel.background = element_blank(),
+    panel.spacing = unit(1, "lines"),
+    panel.border = element_rect(color = "gray", fill = NA, linewidth = 0.5),
+    strip.background = element_rect(fill = "#f0f0f0", color = "gray", linewidth = 0.5),
+    axis.text.x = ggtext::element_markdown(angle = 30, hjust = 1, size = rel(1)),
+    strip.text = element_text(face = "plain", size = 15),
+    legend.position = "right"
+  )
 #-----------------------------
 # Figure: tij and dij for two categories
 #-----------------------------

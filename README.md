@@ -1,10 +1,10 @@
-﻿# Code
+## Software and code
 
-All code used in this study is available at <https://github.com/weiyli/spatial_sldr>.
+All analyses were conducted in R version 4.5.1. The code used for data analysis was custom developed in R and is publicly available at <https://github.com/weiyli/spatial_sldr>. The following R packages were used: broom v1.0.11, car v3.1.3, cowplot v1.2.0, data.table v1.18.4, doParallel v1.0.17, dplyr v1.1.4, foreach v1.5.2, geosphere v1.5.20, ggh4x v0.3.1, ggplot2 v4.0.0, ggraph v2.2.2, ggrepel v0.9.6, ggsignif v0.6.4, ggstar v1.0.6, ggtext v0.1.2, ggthemes v5.1.0, gridExtra v2.3, igraph v2.1.4, knitr v1.50, latex2exp v0.9.6, lme4 v1.1.37, lmerTest v3.2.0, MuMIn v1.48.11, patchwork v1.3.2, plyr v1.8.9, RColorBrewer v1.1.3, relaimpo v2.2.7, scales v1.4.0, sf v1.0.21, spdep v1.4.1, stringr v1.6.0, tidycensus v1.7.3, tidygraph v1.3.1 and tigris v2.2.1.
 
 This repository contains the analysis workflow for the spatial range exponent, $\rho$, a system-level measure of spatial mobility coherence. The workflow estimates how mobility-driven spatial correlations decay across adjacency-based urban networks, compares empirical estimates with distance-based null flow models, evaluates changes during disruptions, and links $\rho$ to spatially correlated epidemic dynamics.
 
-This repository provides the code and documentation for **"The spatial range exponent in human mobility behavior"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Scripts with the `reply_` prefix are analyses used during the response to reviewers and retained to document the revision-round checks.
+This repository provides the code and documentation for **"The spatial reach of mobility interactions in urban systems"**. Main figure scripts are named by manuscript figure number (`fig1`--`fig4`). Supplementary figure scripts use the `fig_SI_` prefix. Scripts with the `reply_` prefix are analyses used during the response to reviewers and retained to document the revision-round checks.
 
 ## Repository structure
 
